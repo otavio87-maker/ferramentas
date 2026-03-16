@@ -1,61 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferramentas Web Application</title>
-</head>
-<body>
-    <h1>Ferramentas Web Application</h1>
-    <div>
-        <h2>WhatsApp Link Generator</h2>
-        <form id="whatsappForm">
-            <input type="text" id="whatsappNumber" placeholder="Enter WhatsApp Number" required />
-            <button type="submit">Generate WhatsApp Link</button>
-        </form>
-        <p id="whatsappLink"></p>
-    </div>
-    <div>
-        <h2>URL Shortener</h2>
-        <form id="urlShortenerForm">
-            <input type="url" id="longUrl" placeholder="Enter long URL" required />
-            <button type="submit">Shorten URL</button>
-        </form>
-        <p id="shortenedUrl"></p>
-    </div>
-    <div>
-        <h2>QR Code Generator</h2>
-        <form id="qrForm">
-            <input type="text" id="qrText" placeholder="Enter text or URL" required />
-            <button type="submit">Generate QR Code</button>
-        </form>
-        <div id="qrCode"></div>
-    </div>
-    <script>
-        // WhatsApp Link Generator
-        document.getElementById('whatsappForm').onsubmit = function (e) {
-            e.preventDefault();
-            const number = document.getElementById('whatsappNumber').value;
-            const link = `https://wa.me/${number}`;
-            document.getElementById('whatsappLink').innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
-        };
+<html lang="pt-BR">
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Ferramentas Web Application</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <style>
+                    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+                    h2 { margin-top: 30px; }
+                    input { padding: 8px; width: 60%; margin-right: 8px; }
+                    button { padding: 8px 14px; cursor: pointer; }
+                    #qrCode { margin-top: 16px; }
+                    #qrCode canvas, #qrCode img { display: block; margin-top: 8px; }
+                </style>
+    </head>
+    <body>
+            <h1>Ferramentas Web Application</h1>
+    
+        <div>
+                    <h2>WhatsApp Link Generator</h2>h2>
+                    <form id="whatsappForm">
+                                    <input type="text" id="whatsappNumber" placeholder="Digite o número do WhatsApp" required />
+                                    <button type="submit">Gerar Link</button>button>
+                    </form>form>
+                    <p id="whatsappLink"></p>p>
+        </div>
 
-        // URL Shortener (mockup)
-        document.getElementById('urlShortenerForm').onsubmit = function (e) {
-            e.preventDefault();
-            const longUrl = document.getElementById('longUrl').value;
-            // Here you would implement actual URL shortening logic.
-            const shortUrl = `http://short.ly/${btoa(longUrl)}`;
-            document.getElementById('shortenedUrl').innerText = shortUrl;
-        };
+            <div>
+                        <h2>URL Shortener</h2>
+                    <form id="urlShortenerForm">
+                                <input type="url" id="longUrl" placeholder="Cole a URL longa aqui" required />
+                                <button type="submit">Encurtar URL</button>button>
+                    </form>form>
+                    <p id="shortenedUrl"></p>p>
+            </div>
+    
+        <div>
+                <h2>QR Code Generator</h2>
+                <form id="qrForm">
+                            <input type="text" id="qrText" placeholder="Digite texto ou URL" required />
+                            <button type="submit">Gerar QR Code</button>button>
+                </form>form>
+                <div id="qrCode"></div>
+        </div>
+    
+        <script>
+                    // WhatsApp Link Generator
+                    document.getElementById('whatsappForm').onsubmit = function (e) {
+                                    e.preventDefault();
+                                    const number = document.getElementById('whatsappNumber').value;
+                                    const link = `https://wa.me/${number}`;
+                                    document.getElementById('whatsappLink').innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+                    };
 
-        // QR Code Generator (mockup)
-        document.getElementById('qrForm').onsubmit = function (e) {
-            e.preventDefault();
-            const qrText = document.getElementById('qrText').value;
-            // Here you would implement actual QR code generation logic.
-            document.getElementById('qrCode').innerText = `QR Code for: ${qrText}`;
-        };
-    </script>
-</body>
-</html>
+                    // URL Shortener (mockup)
+                    document.getElementById('urlShortenerForm').onsubmit = function (e) {
+                                    e.preventDefault();
+                                    const longUrl = document.getElementById('longUrl').value;
+                                    const shortUrl = `http://short.ly/${btoa(longUrl)}`;
+                                    document.getElementById('shortenedUrl').innerText = shortUrl;
+                    };
+
+                    // QR Code Generator
+                    document.getElementById('qrForm').onsubmit = function (e) {
+                                    e.preventDefault();
+                                    const qrText = document.getElementById('qrText').value;
+                                    const container = document.getElementById('qrCode');
+                                    container.innerHTML = '';
+                                    new QRCode(container, {
+                                                        text: qrText,
+                                                        width: 200,
+                                                        height: 200
+                                    });
+                    };
+        </script>
+    </body>
+</html>html>
+        </script></h2></h2>
+            </div>
+        </div></h1>
+    </body>
+        </style></title>
+    </head>
