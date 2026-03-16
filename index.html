@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramentas Web Application</title>
+</head>
+<body>
+    <h1>Ferramentas Web Application</h1>
+    <div>
+        <h2>WhatsApp Link Generator</h2>
+        <form id="whatsappForm">
+            <input type="text" id="whatsappNumber" placeholder="Enter WhatsApp Number" required />
+            <button type="submit">Generate WhatsApp Link</button>
+        </form>
+        <p id="whatsappLink"></p>
+    </div>
+    <div>
+        <h2>URL Shortener</h2>
+        <form id="urlShortenerForm">
+            <input type="url" id="longUrl" placeholder="Enter long URL" required />
+            <button type="submit">Shorten URL</button>
+        </form>
+        <p id="shortenedUrl"></p>
+    </div>
+    <div>
+        <h2>QR Code Generator</h2>
+        <form id="qrForm">
+            <input type="text" id="qrText" placeholder="Enter text or URL" required />
+            <button type="submit">Generate QR Code</button>
+        </form>
+        <div id="qrCode"></div>
+    </div>
+    <script>
+        // WhatsApp Link Generator
+        document.getElementById('whatsappForm').onsubmit = function (e) {
+            e.preventDefault();
+            const number = document.getElementById('whatsappNumber').value;
+            const link = `https://wa.me/${number}`;
+            document.getElementById('whatsappLink').innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+        };
+
+        // URL Shortener (mockup)
+        document.getElementById('urlShortenerForm').onsubmit = function (e) {
+            e.preventDefault();
+            const longUrl = document.getElementById('longUrl').value;
+            // Here you would implement actual URL shortening logic.
+            const shortUrl = `http://short.ly/${btoa(longUrl)}`;
+            document.getElementById('shortenedUrl').innerText = shortUrl;
+        };
+
+        // QR Code Generator (mockup)
+        document.getElementById('qrForm').onsubmit = function (e) {
+            e.preventDefault();
+            const qrText = document.getElementById('qrText').value;
+            // Here you would implement actual QR code generation logic.
+            document.getElementById('qrCode').innerText = `QR Code for: ${qrText}`;
+        };
+    </script>
+</body>
+</html>
