@@ -12,6 +12,9 @@
         button { padding: 8px 14px; cursor: pointer; }
         #qrCode { margin-top: 16px; }
         #qrCode canvas, #qrCode img { display: block; margin-top: 8px; }
+        #shortenedUrl a { color: #0070f3; word-break: break-all; }
+        .loading { color: #888; font-style: italic; }
+        .error { color: red; }
     </style>
 </head>
 <body>
@@ -30,7 +33,7 @@
         <h2>URL Shortener</h2>
         <form id="urlShortenerForm">
             <input type="url" id="longUrl" placeholder="Cole a URL longa aqui" required />
-            <button type="submit">Encurtar URL</button>
+            <button type="submit" id="shortenBtn">Encurtar URL</button>
         </form>
         <p id="shortenedUrl"></p>
     </div>
@@ -45,6 +48,7 @@
     </div>
 
     <script>
+        // WhatsApp Link Generator
         document.getElementById('whatsappForm').onsubmit = function (e) {
             e.preventDefault();
             const number = document.getElementById('whatsappNumber').value;
@@ -52,13 +56,33 @@
             document.getElementById('whatsappLink').innerHTML = '<a href="' + link + '" target="_blank">' + link + '</a>';
         };
 
+        // URL Shortener usando API do TinyURL
         document.getElementById('urlShortenerForm').onsubmit = function (e) {
             e.preventDefault();
             const longUrl = document.getElementById('longUrl').value;
-            const shortUrl = 'http://short.ly/' + btoa(longUrl);
-            document.getElementById('shortenedUrl').innerText = shortUrl;
+            const output = document.getElementById('shortenedUrl');
+            const btn = document.getElementById('shortenBtn');
+
+            output.innerHTML = '<span class="loading">Encurtando...</span>';
+            btn.disabled = true;
+
+            fetch('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(longUrl))
+                .then(function(res) {
+                    if (!res.ok) throw new Error('Erro na resposta');
+                    return res.text();
+                })
+                .then(function(shortUrl) {
+                    output.innerHTML = 'URL encurtada: <a href="' + shortUrl + '" target="_blank">' + shortUrl + '</a>';
+                })
+                .catch(function() {
+                    output.innerHTML = '<span class="error">Erro ao encurtar. Verifique a URL e tente novamente.</span>';
+                })
+                .finally(function() {
+                    btn.disabled = false;
+                });
         };
 
+        // QR Code Generator
         document.getElementById('qrForm').onsubmit = function (e) {
             e.preventDefault();
             const qrText = document.getElementById('qrText').value;
